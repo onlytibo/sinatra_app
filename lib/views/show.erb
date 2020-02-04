@@ -8,9 +8,21 @@
     Son auteur : <%=gossip.author%><br />
     Le contenu du potin : <%=gossip.content%><br /><br />
 
+    <form action='/gossip/<%=index%>' method='POST'>
+      Auteur : <input type='text' name='comment_author'/><br/>
+      Ton commentaire : <input type='textarea' name='comment_content'/><br/>
+      <input type='submit'/>
+    </form>
+    <br />
     <a href="/edit/<%=index%>">Editer un potin</a>
     <a href="/">Revenir à la page d'accueil</a>
-    </ul>
+    
+    <h2>Commentaires :</h2>
+    <%=comments%>
+    <%comments.each do |c|%>
+      <%=c.comment_author%>
+      <%=c.comment_content%>
+    <%end%>
   </body>
 </html>
 
