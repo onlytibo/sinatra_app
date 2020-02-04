@@ -7,11 +7,12 @@ class Gossip
   attr_accessor :author, :content, :date, :comments
   @@all_gossips = []
 
-  def initialize(author,content,date = DateTime.now.strftime("%H:%M, le %d/%m/%Y"),comments)
+  def initialize(author,content,date = DateTime.now.strftime("%H:%M, le %d/%m/%Y"))
     @author = author
     @content = content
     @date = date
-    @comments = []
+    
+
   end
 
   def save
@@ -21,21 +22,12 @@ class Gossip
   end
 
   def self.all
-    # all_gossips = []
-
+    @@all_gossips = []
     CSV.read("./db/gossip.csv").each do |line|
       @@all_gossips << Gossip.new(line[0], line[1], line[2], line[3])
     end
     return @@all_gossips
   end
-
-  def self.find(id)
-    gossips =  Gossip.all
-    real_id = id-1
-    gossip = @@all_gossips[real_id]
-    return gossip
-  end
-
 
   def edit(author, content, date, id)
     @author = author
@@ -76,12 +68,12 @@ class Gossip
         csv << [g.author, g.content, g.date, g.comments]
       end
     end
-    comments = all_gossips_with_replaced_element[id-1].comments
+    # comments = all_gossips_with_replaced_element[id-1].comments
 
   end
   def display_comment
     id_comments = self.comments
-    puts id_comments
+    print id_comments
     return id_comments
     # comments_ary = []
     # @@all_gossips.map.with_index do |g, i|
@@ -92,6 +84,15 @@ class Gossip
     #   end
     # end
     # comment = comments_ary[id].comments
+  end
+
+  def self.find(id)
+    gossips =  Gossip.all
+    print @@all_gossips
+    real_id = id-1
+    gossip = @@all_gossips[real_id]
+    puts gossip
+    return gossip
   end
 end
   # def comments(id,author,content)
